@@ -22,19 +22,22 @@ def main():
         json_data = json.load(file)
     if json_data is not None:
         # 데이터 저장할 리스트
-        papers = []
+        datas = []
 
         # json_data[0]에 있는 각 데이터를 papers 리스트에 추가
         for paper_info in json_data:
-            paper = {
-                "doc_type": paper_info['data'].get("doc_type", ""),
-                "doc_id": paper_info.get("doc_id", ""),
-                "title": paper_info.get("title", ""),
-                "date": paper_info.get("date", ""),
-                "summary_text": paper_info.get("summary_text", ""),
-            }
-            papers.append(paper)
+            for i in range(len(paper_info)):
+                data = {
+                    "doc_type": paper_info['data'][i].get("doc_type", ""),
+                    "doc_id": paper_info['data'][i].get("doc_id", ""),
+                    "title": paper_info['data'][i].get("title", ""),
+                    "date": paper_info['data'][i].get("date", ""),
+                    "orginal_text": paper_info['data'][i]["summary_entire"][0].get("orginal_text", ""),
+                    "summary_text": paper_info['data'][i]["summary_entire"][0].get("summary_text", ""),
+                }
+                datas.append(data)
 
+    print(datas)
 
 
 if __name__ == '__main__':
