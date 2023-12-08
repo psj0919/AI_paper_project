@@ -1,43 +1,42 @@
-def dataset_info(dataset_name='demo'):
-    if dataset_name == "paper_dataset":
-        train_path = 'C:/Users/82107/AI_project_dataset/data/Training/labeling_data/training_paper/training_논문/논문요약20231006_0.json'
+def dataset_info(dataset_name):
 
-    return train_path
+    if dataset_name == 'data_1':
+        train_path = '/home/work/paper_data/논문요약20231006_0.json'
+
+    return dataset_name, train_path 
+
 def get_config_dict():
-
-    dataset_name = "paper_dataset"
-    train_path= dataset_info(dataset_name)
+    dataset_name = 'data_1'
+    name, data = dataset_info(dataset_name)
+    checkpoints_save_path = "./checkpoints/"
+    checkpoints_file = None # or my checkpoint_path
 
     dataset = dict(
-        train_path = train_path,
-        image_size = 224,
-        batch_size = 16,
-        num_workers = 5,
+        name = name,
+        data_path = data, 
+        checkpoints_file = checkpoints_file,
+        checkpoints_save_path = checkpoints_save_path,
+        max_size = 5000,
+        embedding_dim = 100,
+        hidden_dim = 256,
+        output_dim = 1,
+        n_layers = 2,
+        bidirectional = True,
+        dropout = 0.5
     )
     model = dict(
-        name = 't5'
+        name = 'LSTM',
+
     )
     solver = dict(
-        epoch=100,
-        lr = 1e-4,
-        lr_base= 1e-5,
-        lr_max = 0.5e-7,
-        lr_gamma = 0.9,
-        lrf = 1e-2,
-        T_up = 10,
-        T_down = 10,
-        weight_decay = 5e-4,
-        print_freq = 100,
-        eval_interval = 25000 * 4,
-        num_thres = 120,
-        num_up_down = 50,
+        batch_size = 64,
+        epoch = 100
+        
     )
     option = dict(
-        gpu_id='1',
-        fc_metric = 'arc',
-        easy_margin=False,
-        optimizer = 'adam',
-        scheduler = 'cosine'
+        loss = 'BCE',
+        optim = 'Adam',
+        
     )
     config = dict(
         dataset = dataset,
