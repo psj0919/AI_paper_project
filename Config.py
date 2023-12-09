@@ -25,7 +25,7 @@ def get_config_dict():
         dropout = 0.5
     )
     model = dict(
-        name = 'LSTM',
+        name = 'seq2seq',
 
     )
     solver = dict(
