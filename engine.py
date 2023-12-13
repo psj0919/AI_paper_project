@@ -88,5 +88,4 @@ class Trainer():
                 probe = softmax(pred, dim = -1)
                 max_prob_index = torch.argmax(probe, dim=-1)
                 decode_word = input[max_prob_index.item()]
-                
-        
+            
